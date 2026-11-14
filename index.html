@@ -333,7 +333,7 @@ document.getElementById('application').addEventListener('submit', async function
   box.textContent = 'Отправляем заявку в Telegram...';
 
   try {
-    const response = await fetch('/order', {
+    const response = await fetch('/api/order', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(order)
@@ -346,7 +346,7 @@ document.getElementById('application').addEventListener('submit', async function
     box.textContent = `Спасибо, ${order.firstName}! Заявка отправлена. Мы свяжемся с вами для подтверждения заказа.`;
     form.reset();
   } catch (error) {
-    box.textContent = 'Не удалось отправить заявку. Проверь, что сервер запущен и настройки Telegram заполнены, затем попробуй ещё раз.';
+    box.textContent = error.message || 'Не удалось отправить заявку. Попробуй ещё раз чуть позже.';
   } finally {
     button.disabled = false;
     button.textContent = originalButtonText;
